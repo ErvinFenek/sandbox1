@@ -1,4 +1,4 @@
-const ToDoItem = (id, text, isDone, removeTodo, isDoneHandler) => {
+const ToDoItem = ({id, text, isDone, removeTodo, isDoneHandler}) => {
     return (
         <li>
             <input

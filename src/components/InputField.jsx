@@ -1,4 +1,4 @@
-const InputField = (text, handleInput, handleSubmit) => {
+const InputField = ({text, handleInput, handleSubmit}) => {
     return (
             <label>
                 <input value={text} onChange={(e) => handleInput(e.target.value)}/>
