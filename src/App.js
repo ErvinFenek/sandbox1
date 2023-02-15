@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { v4 } from "uuid"
+import {useDispatch} from "react-redux";
+
+import {addToDo} from "./store/ToDoSlice";
 import { ToDoList } from "./components/ToDoList";
 import { InputField } from "./components/InputField";
 import { Select } from "./components/Select";
@@ -7,7 +9,6 @@ import { Select } from "./components/Select";
 import './App.css';
 
 function App() {
-  const [todos, setTodos] = useState([]);
   const [text, setText] = useState("");
   const [tasksToShow, setTasksToShow] = useState("ALL_TASKS");
   const ALL_TASKS = "0";
@@ -27,46 +28,35 @@ function App() {
             value: IN_PROGRESS,
         }
   ];
+  const dispatch = useDispatch();
+
+  const addTask = () => dispatch(addToDo(text));
 
    const onSelectChangeHandler = (e) => {
-        setTasksToShow(e.target.value);
-        console.log(tasksToShow);
+        // setTasksToShow(e.target.value);
    };
 
-  const handleSubmit = () => {
-    if (text.trim().length) {
-      setTodos([
-        ...todos,
-        {
-          id: v4(),
-          text: text,
-          isDone: false,
-        }
-      ])
-        setText("");
-    }
 
-  }
   const isDoneHandler = (todoId) => {
-      setTodos(
-          todos.map(
-              todo => {
-                  if (todo.id !== todoId) return todo;
-                  return {
-                      ...todo,
-                      isDone: !todo.isDone,
-                  }
-              }
-          )
-      )
+      // setTodos(
+      //     todos.map(
+      //         todo => {
+      //             if (todo.id !== todoId) return todo;
+      //             return {
+      //                 ...todo,
+      //                 isDone: !todo.isDone,
+      //             }
+      //         }
+      //     )
+      // )
   }
   const removeTodo = (todoId) => {
-      setTodos(todos.filter(todo => todo.id !== todoId))
+      // setTodos(todos.filter(todo => todo.id !== todoId))
   }
 
   return (
     <div className="App">
-        <InputField text={text} handleInput={setText} handleSubmit={handleSubmit}/>
+        <InputField text={text} handleInput={setText} AddToDo={addTask}/>
 
         <Select
             tasksToShow={tasksToShow}
@@ -77,11 +67,11 @@ function App() {
             ALL_TASKS={ALL_TASKS}
             IN_PROGRESS={IN_PROGRESS}
         />
-      <ToDoList todos={todos}
-                isDoneHandler={isDoneHandler}
-                removeTodo={removeTodo}
-                handleSubmit={handleSubmit}
+      <ToDoList
                 tasksToShow={tasksToShow}
+                DONE={DONE}
+                ALL_TASKS={ALL_TASKS}
+                IN_PROGRESS={IN_PROGRESS}
 
       />
     </div>

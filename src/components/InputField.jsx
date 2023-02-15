@@ -1,8 +1,8 @@
-const InputField = ({text, handleInput, handleSubmit}) => {
+const InputField = ({text, handleInput, AddToDo}) => {
     return (
             <label>
                 <input value={text} onChange={(e) => handleInput(e.target.value)}/>
-                <button onClick={handleSubmit}>Add Task</button>
+                <button onClick={AddToDo}>Add Task</button>
             </label>
     )
 }

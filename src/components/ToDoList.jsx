@@ -1,7 +1,10 @@
-import React from "react";
+import {useSelector} from "react-redux";
 import { ToDoItem } from "./ToDoItem";
 
- const ToDoList = ({todos, removeTodo, isDoneHandler, tasksToShow, DONE, ALL_TASKS, IN_PROGRESS, }) => {
+
+ const ToDoList = ({tasksToShow,  DONE, ALL_TASKS, IN_PROGRESS}) => {
+    const todos = useSelector(state => state.todos.todos);
+
     return (
         <ul>
             {
@@ -18,8 +21,7 @@ import { ToDoItem } from "./ToDoItem";
                     }
                     })
                      .map(todo => <ToDoItem key={todo.id}
-                     removeTodo={removeTodo}
-                     isDoneHandler={isDoneHandler}
+
                      {...todo}/>)
             }
         </ul>
